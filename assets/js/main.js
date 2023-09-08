@@ -58,13 +58,13 @@ const posts = [
 
 
 const containerEl = document.querySelector(".posts-list");
-let randomNumber=0;
+let randomNumber = 0;
 
 
-posts.forEach(function(user) {
+posts.forEach(function (user) {
     randomNumber++
 
-    
+
     const post = `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
@@ -83,8 +83,8 @@ posts.forEach(function(user) {
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
-            <div class="likes__cta" id="likeBtn">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+            <div class="likes__cta" id="likeBtn-${user.id}">
+                <a class="like-button-${user.id}  js-like-button-${user.id}" href="#" data-postid="1">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -98,16 +98,41 @@ posts.forEach(function(user) {
     containerEl.innerHTML += post;
 
 
-    const likeEL = document.getElementById("likeBtn");
-    const likeCounterEl = document.querySelectorAll(`.likes-count-${user.id}`)
-    
+
+})
+
+
+
+posts.forEach(function (user) {
+
+    const likeEL = document.getElementById(`likeBtn-${user.id}`);
+    const likeCounterEl = document.querySelector(`.likes-count-${user.id}`)
+    const likeColor = document.querySelector(`.like-button-${user.id}`)
+
+
+    let isLiked = false;
 
     likeEL.addEventListener('click', function (e) {
         e.preventDefault();
-        this.classList.add("like-button--liked");
-        user.likes ++
-        likeCounterEl.textContent = user.likes;
+
+        if (isLiked === false) {
+            likeColor.classList.add("like-button--liked");
+            user.likes++
+            likeCounterEl.textContent = user.likes;
+            isLiked = true;
+            
+        } else {
+
+            likeColor.classList.remove("like-button--liked");
+            user.likes--
+            likeCounterEl.textContent = user.likes;
+            isLiked = false
+        }
+
+       
+
+        console.log(user);
+        console.log(likeCounterEl);
+        console.log(likeEL);
     })
-
-
 })
