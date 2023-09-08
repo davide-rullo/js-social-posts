@@ -101,7 +101,7 @@ posts.forEach(function (user) {
 
 })
 
-
+let likedPosts=[]
 
 posts.forEach(function (user) {
 
@@ -119,20 +119,24 @@ posts.forEach(function (user) {
             likeColor.classList.add("like-button--liked");
             user.likes++
             likeCounterEl.textContent = user.likes;
+            likedPosts.push(user.id)
+
             isLiked = true;
-            
+
         } else {
 
             likeColor.classList.remove("like-button--liked");
             user.likes--
             likeCounterEl.textContent = user.likes;
             isLiked = false
+            likedPosts.splice(user.id,1)
         }
 
        
-
-        console.log(user);
-        console.log(likeCounterEl);
-        console.log(likeEL);
+        console.log(likedPosts);
+     
+       
     })
+    
 })
+
