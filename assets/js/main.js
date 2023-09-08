@@ -38,7 +38,7 @@ const posts = [
         media: "https://picsum.photos/600/300?random=",
         author: {
             name: "Luca Formicola",
-            image: null
+            image: "https://picsum.photos/300/300?random="
         },
         likes: 56,
         created: "2021-04-03"
@@ -63,6 +63,8 @@ let randomNumber=0;
 
 posts.forEach(function(user) {
     randomNumber++
+
+    
     const post = `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
@@ -81,7 +83,7 @@ posts.forEach(function(user) {
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
-            <div class="likes__cta">
+            <div class="likes__cta" id="likeBtn">
                 <a class="like-button  js-like-button" href="#" data-postid="1">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
@@ -94,4 +96,16 @@ posts.forEach(function(user) {
     </div>            
 </div>`
     containerEl.innerHTML += post;
+
+
+    const likeEL = document.getElementById("likeBtn");
+    
+
+    likeEL.addEventListener('click', function (e) {
+        e.preventDefault();
+        this.classList.add("like-button--liked");
+        user.likes ++
+    })
+
+
 })
